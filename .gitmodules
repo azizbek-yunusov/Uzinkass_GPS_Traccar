@@ -1,0 +1,3 @@
+[submodule "traccar"]
+	path = traccar
+	url = https://github.com/traccar/traccar.git

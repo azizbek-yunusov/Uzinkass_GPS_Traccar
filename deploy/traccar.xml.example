@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
+
+<!--
+  NAMUNA konfiguratsiya fayli.
+  Ishlatish uchun: ushbu faylni `traccar.xml` deb nusxa qilib, qiymatlarni to'ldiring.
+  DIQQAT: haqiqiy `traccar.xml` (parollar bilan) .gitignore orqali repoga tushmaydi!
+-->
+<properties>
+
+    <entry key='config.default'>./conf/default.xml</entry>
+
+    <!-- PostgreSQL ulanish sozlamalari -->
+    <entry key='database.driver'>org.postgresql.Driver</entry>
+    <entry key='database.url'>jdbc:postgresql://127.0.0.1:5432/gps</entry>
+    <entry key='database.user'>postgres</entry>
+    <entry key='database.password'>__PAROLNI_SHU_YERGA__</entry>
+
+</properties>
