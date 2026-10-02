@@ -108,6 +108,47 @@ Katta dump uzoq davom etadi. Alohida terminalда kuzating:
 watch -n 10 'ls -lh /mnt/external/gps_backup.dump'
 ```
 
+### 3.5 O'z kompyuteringizga olish (pull / scp) — arxiv nusxa uchun tavsiya
+
+Zaxirani **o'z kompyuteringizga** olish mumkin — ayniqsa **xavfsizlik (arxiv) nusxasi** sifatida juda foydali (hozirda hech qanday backup yo'q!). Hatto migratsiyadan oldin **hoziroq** bitta nusxa olib qo'yish tavsiya etiladi.
+
+**Amaliy jihatlar:**
+
+| Jihat | Izoh |
+|---|---|
+| Disk joyi | Kompyuterда ~100–200 GB bo'sh kerak (siqilgan dump) |
+| Vaqt | Tarmoq tezligiga qarab soatlab |
+| Ikki marta uzatish | Server → kompyuter → yangi server = sekinroq (server↔server to'g'ridan-to'g'ri tezroq) |
+| Uzilish | `scp` uzilsa noldan boshlanadi; `rsync` esa davom ettiradi |
+
+> ⚠️ Eski serverда atigi ~139 GB bo'sh. Shuning uchun serverда katta dump fayl yaratmay, uni **to'g'ridan-to'g'ri kompyuteringizga oqizish** (pull) eng maqbul.
+
+**A) To'g'ridan-to'g'ri oqizish (serverда fayl yaratmaydi) — tavsiya etiladi:**
+
+```bash
+# O'z kompyuteringizdan ishga tushiring:
+ssh -p 49001 root@10.0.57.102 \
+  "PGPASSWORD='<DB_PAROL>' pg_dump -h 127.0.0.1 -U postgres -d gps -Fc -Z6" \
+  > gps_backup.dump
+```
+
+**B) Oddiy scp (avval serverда dump fayl bo'lishi kerak — tashqi diskда):**
+
+```bash
+scp -P 49001 root@10.0.57.102:/mnt/external/gps_backup.dump .
+```
+
+**C) rsync (uzilsa davom ettiradi — katta fayl uchun eng ishonchli):**
+
+```bash
+rsync -avP -e 'ssh -p 49001' root@10.0.57.102:/mnt/external/gps_backup.dump .
+```
+
+> **Qaysi birini qachon:**
+> - **Arxiv/xavfsizlik nusxasi** → kompyuterga olish (A yoki C) — a'lo
+> - **Yangi serverga ko'chirish** → agar ikkala server bir-biriga ulana olsa, **server→server to'g'ridan-to'g'ri** (3.1) tezroq va ishonchliroq
+> - **Uzilishdan xavfsirsangiz** → `scp` o'rniga `rsync -avP` (resume)
+
 ---
 
 ## 4. Traccar sozlama va fayllarini ko'chirish
