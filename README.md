@@ -44,6 +44,7 @@ cd traccar
 
 - [`docs/01-server-tahlili.md`](docs/01-server-tahlili.md) — ishlab turgan server, konfiguratsiya va DB tahlili
 - [`docs/02-versiya-taqqoslash.md`](docs/02-versiya-taqqoslash.md) — Traccar 5.5 → 6.16 taqqoslash va afzalliklar
+- [`docs/10-gps-masofa-farqi-tahlili.md`](docs/10-gps-masofa-farqi-tahlili.md) — GPS km qog'oz hisobotdan 30–40% kam: sabablar, diagnostika SQL, yechimlar
 
 ## Sozlash
 
